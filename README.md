@@ -15,7 +15,7 @@ brew install nginx
 >We’ll be using [OpenSSL](https://www.openssl.org/) to generate all of our certificates.
 
 Follow  steps below.
-
+\
 1. ####  Root SSL certificate
 Generate a RSA-2048 key and save it to a file `rootCA.key`.
 ```bash
@@ -34,11 +34,11 @@ Organization=Housing
 Organization Unit Name=Technology
 Common Name=local.housing.com
 Email Address=your.email@housing.com
-
+\
 2. ####  Trust the root SSL certificate
 
 Open Keychain Access on your Mac and go to the Certificates category in your System keychain. Once there, import the `rootCA.pem` using File > Import Items. Double click the imported certificate and change the “When using this certificate:” dropdown to `Always Trust` in the Trust section.
-
+\
 3. #####  Domain SSL Certificate
 The root SSL certificate can now be used to issue a certificate specifically for your local development environment located at `https://local.housing.com/`.
 
@@ -82,7 +82,7 @@ A certificate signing request is issued via the root SSL certificate we created 
 ```bash
 openssl x509 -req -in server.csr -CA rootCA.pem -CAkey rootCA.key -CAcreateserial -out server.crt -days 500 -sha256 -extfile < path_of v3.ext>
 ```
-
+\
 4. #### Configure system to serve localhost on alias
 
 Now edit let your system know to serve local assets when `https://local.housing.com` is accessed from browser by editing `/etc/hosts` file
@@ -101,8 +101,9 @@ Make changes in above file to look like this
 255.255.255.255	broadcasthost
 ::1             localhost
 ```
-
+\
 5. #### Configure and run NGINX server
+
 Create a file **`nginx-node.conf`** and  assign location of `server.crt` and  `server.key`  that we created in [Step 3 ⏫](#domain-ssl-certificate) to `ssl_certificate` ,    `ssl_certificate_key`
 
 > *Its best to move `server.crt` and  `server.key` into a different directory so it doesn't clash with any other configurations.*
@@ -146,7 +147,7 @@ http {
     }
 }
 ```
-
+\
  6. #### Run NGINX Server
 Now all that left is to run the server with finger crossed🤞🏻
 ```bash
